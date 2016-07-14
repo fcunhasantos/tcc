@@ -1,0 +1,27 @@
+<a class="btn btn-sm btn-primary pull-right"
+   href="<?php echo $this->url('usuario'); ?>">
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+</a>
+<h3>Editar Usuário</h3>
+<?php echo $this->form()->openTag($form);?>
+<div class="form-group">
+    <label for="inputNome">Nome</label>
+    <?php echo $this->formRow($form->get('nome'));?>
+</div>
+<div class="form-group">
+    <label for="inputNome">Email</label>
+    <?php echo $this->formRow($form->get('email'));?>
+</div>
+<div class="form-group">
+    <label for="inputNome">Perfil</label>
+
+    <?php echo $this->formSelect($form->get('perfil'));?>
+</div>
+<div class="form-group">
+    <label for="inputNome">Senha</label>
+    <?php echo $this->formRow($form->get('senha'));?>
+</div>
+<div class="form-group">
+    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+</div>
+<?php echo $this->form()->closeTag($form);?>

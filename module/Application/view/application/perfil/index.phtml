@@ -1,0 +1,37 @@
+<a class="btn btn-sm btn-primary pull-right"
+   href="<?php echo $this->url('perfil', array('action' => 'adicionar')); ?>">
+   <span class="glyphicon glyphicon-plus"></span> Adicionar
+</a>
+<h3>Perfis</h3>
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>Nome</th>
+        <th>Editar</th>
+        <th>Remover</th>
+    </tr>
+    <?php foreach($data as $perfil):?>
+        <tr>
+            <td>
+                <?php echo  $perfil->getNome();?>
+            </td>
+            <td><a
+                    href="<?php
+                        echo $this->url('perfil', array(
+                            'action' => 'editar',
+                            'id' => $perfil->getId()
+                        ));
+                    ?>"> <span class="glyphicon glyphicon-edit"></span> Editar
+                </a>
+            </td>
+            <td><a onclick="return confirm('Deseja remover?')"
+                   href="<?php
+                       echo $this->url('perfil', array(
+                           'action' => 'remover',
+                           'id' => $perfil->getId()
+                       ));
+                   ?>"> <span class="glyphicon glyphicon-trash"></span> Remover
+                </a>
+            </td>
+        </tr>
+    <?php endforeach;?>
+</table>
