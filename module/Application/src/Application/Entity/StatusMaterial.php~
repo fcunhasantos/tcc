@@ -1,0 +1,53 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * StatusMaterial
+ *
+ * @ORM\Table(name="status_material", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_status_material_inscricao1_idx", columns={"inscricao_id"}), @ORM\Index(name="fk_status_material_material1_idx", columns={"material_id"})})
+ * @ORM\Entity
+ */
+class StatusMaterial
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="percentual", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $percentual = '0';
+
+    /**
+     * @var \Application\Entity\Inscricao
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Inscricao")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="inscricao_id", referencedColumnName="id")
+     * })
+     */
+    private $inscricao;
+
+    /**
+     * @var \Application\Entity\Material
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Material")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="material_id", referencedColumnName="id")
+     * })
+     */
+    private $material;
+
+
+}
+

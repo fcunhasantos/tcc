@@ -1,0 +1,43 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Resposta
+ *
+ * @ORM\Table(name="resposta", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_resposta_questao1_idx", columns={"questao_id"})})
+ * @ORM\Entity
+ */
+class Resposta
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descricao", type="string", length=500, nullable=false)
+     */
+    private $descricao;
+
+    /**
+     * @var \Application\Entity\Questao
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Questao")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="questao_id", referencedColumnName="id")
+     * })
+     */
+    private $questao;
+
+
+}
+

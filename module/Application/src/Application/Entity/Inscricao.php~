@@ -1,0 +1,53 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Inscricao
+ *
+ * @ORM\Table(name="inscricao", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_inscricao_usuario1_idx", columns={"usuario_id"}), @ORM\Index(name="fk_inscricao_curso1_idx", columns={"curso_id"})})
+ * @ORM\Entity
+ */
+class Inscricao
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="nota", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $nota = '0';
+
+    /**
+     * @var \Application\Entity\Curso
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Curso")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
+     * })
+     */
+    private $curso;
+
+    /**
+     * @var \Application\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * })
+     */
+    private $usuario;
+
+
+}
+

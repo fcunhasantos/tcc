@@ -8,5 +8,5 @@ vendor/bin/doctrine-module orm:generate-entities --generate-annotations="true" -
 
 * Generate repositories
 --add on entity below @ORM\Entity
-@ORM\Entity(repositoryClass="Application\Entity\NameRepository")
+@ORM\Entity(repositoryClass="Application\Repository\NameRepository")
 vendor/bin/doctrine-module orm:generate-repositories module/Application/src/

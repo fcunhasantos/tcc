@@ -1,0 +1,60 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Atividade
+ *
+ * @ORM\Table(name="atividade", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_atividade_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_atividade_tipo_atividade1_idx", columns={"tipo_atividade_id"})})
+ * @ORM\Entity
+ */
+class Atividade
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=100, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descricao", type="string", length=500, nullable=true)
+     */
+    private $descricao;
+
+    /**
+     * @var \Application\Entity\Curso
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Curso")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
+     * })
+     */
+    private $curso;
+
+    /**
+     * @var \Application\Entity\TipoAtividade
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\TipoAtividade")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipo_atividade_id", referencedColumnName="id")
+     * })
+     */
+    private $tipoAtividade;
+
+
+}
+

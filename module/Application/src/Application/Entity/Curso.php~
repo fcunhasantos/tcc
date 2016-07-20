@@ -1,0 +1,67 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Curso
+ *
+ * @ORM\Table(name="curso", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_curso_categoria_curso1_idx", columns={"categoria_curso_id"}), @ORM\Index(name="fk_curso_instrutor1_idx", columns={"instrutor_id"})})
+ * @ORM\Entity
+ */
+class Curso
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titulo", type="string", length=100, nullable=false)
+     */
+    private $titulo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="palavras_chave", type="string", length=500, nullable=true)
+     */
+    private $palavrasChave;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_limite", type="date", nullable=true)
+     */
+    private $dataLimite;
+
+    /**
+     * @var \Application\Entity\CategoriaCurso
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\CategoriaCurso")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categoria_curso_id", referencedColumnName="id")
+     * })
+     */
+    private $categoriaCurso;
+
+    /**
+     * @var \Application\Entity\Instrutor
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Instrutor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="instrutor_id", referencedColumnName="id")
+     * })
+     */
+    private $instrutor;
+
+
+}
+
