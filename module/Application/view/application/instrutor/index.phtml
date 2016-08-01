@@ -19,7 +19,6 @@
         <tr>
             <th>Nome</th>
             <th>Email</th>
-            <th>Perfil</th>
             <th>Editar</th>
             <th>Remover</th>
         </tr>
@@ -29,9 +28,6 @@
             </td>
             <td>
                 {{row.email}}
-            </td>
-            <td>
-                {{row.perfil.nome}}
             </td>
             <td ng-controller="indexRowController">
                 <a class="edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-edit"></span> Editar</a>

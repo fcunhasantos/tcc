@@ -1,37 +1,38 @@
-<a class="btn btn-sm btn-primary pull-right"
-   href="<?php echo $this->url('perfil', array('action' => 'adicionar')); ?>">
-   <span class="glyphicon glyphicon-plus"></span> Adicionar
-</a>
-<h3>Perfis</h3>
-<table class="table table-bordered table-condensed">
-    <tr>
-        <th>Nome</th>
-        <th>Editar</th>
-        <th>Remover</th>
-    </tr>
-    <?php foreach($data as $perfil):?>
+<div ng-controller="indexController" ng-init='data = <?php echo json_encode($data); ?>'>
+
+    <h3><?php echo utf8_encode($title); ?></h3>
+
+    <form class="navbar-form navbar-right" role="search">
+        <!-- Filtros e Ordenação -->
+        <div class="form-group has-feedback">
+            <input type="search" class="form-control input-sm" aria-describedby="Pesquisar" placeholder="Pesquisar..." ng-model="filtro.$">
+        </div>
+        <!-- Novo -->
+        <div class="form-group has-feedback">
+            <a class="btn btn-sm btn-primary pull-right" ng-click="add()" href="#">
+                <span class="glyphicon glyphicon-plus"></span> Adicionar
+            </a>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-condensed">
         <tr>
+            <th>Nome</th>
+            <th>Editar</th>
+            <th>Remover</th>
+        </tr>
+        <tr ng-repeat="row in data | filter:filtro">
             <td>
-                <?php echo  $perfil->getNome();?>
+                {{row.nome}}
             </td>
-            <td><a
-                    href="<?php
-                        echo $this->url('perfil', array(
-                            'action' => 'editar',
-                            'id' => $perfil->getId()
-                        ));
-                    ?>"> <span class="glyphicon glyphicon-edit"></span> Editar
-                </a>
+            <td ng-controller="indexRowController">
+                <a class="edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-edit"></span> Editar</a>
             </td>
-            <td><a onclick="return confirm('Deseja remover?')"
-                   href="<?php
-                       echo $this->url('perfil', array(
-                           'action' => 'remover',
-                           'id' => $perfil->getId()
-                       ));
-                   ?>"> <span class="glyphicon glyphicon-trash"></span> Remover
-                </a>
+            <td ng-controller="indexRowController">
+                <a class="add" href="#" data-toggle="modal" data-target=".modal-confirmDelete"> <span class="glyphicon glyphicon-trash"></span> Remover</a>
+                <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
             </td>
         </tr>
-    <?php endforeach;?>
-</table>
+    </table>
+
+</div>

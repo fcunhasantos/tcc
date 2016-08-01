@@ -176,6 +176,17 @@ class Perfil extends \Application\Entity\Perfil implements \Doctrine\ORM\Proxy\P
     /**
      * {@inheritDoc}
      */
+    public function toArray()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', []);
+
+        return parent::toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

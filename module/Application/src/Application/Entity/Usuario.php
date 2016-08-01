@@ -41,6 +41,7 @@ class Usuario
      *
      * @ORM\Column(name="senha", type="string", length=255, nullable=false)
      */
+    //@todo Codificar e decodificar a senha
     private $senha;
 
     /**
@@ -54,6 +55,15 @@ class Usuario
     private $perfil;
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'perfil' => $this->perfil->toArray()
+        );
+    }
 
     /**
      * Get id

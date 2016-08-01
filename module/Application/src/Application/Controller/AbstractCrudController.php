@@ -34,11 +34,18 @@ abstract class AbstractCrudController extends AbstractActionController
     protected $controller;
     protected $action;
 
+    protected $title = 'Início';
+
     public function indexAction()
     {
         $data = $this->getRepository()->findAll();
+        $dataArray = array();
+        foreach($data as $object){
+            $dataArray[] = $object->toArray();
+        }
         return array(
-            'data' => $data
+            'title'=> $this->title,
+            'data' => $dataArray
         );
     }
 
@@ -46,9 +53,13 @@ abstract class AbstractCrudController extends AbstractActionController
     {
         //@todo verificar outra forma de passar o nome para o form. Não utilizar a rota
         /** @var Form $form */
-        $form = new $this->form($this->route, array(
+        /*$form = new $this->form($this->route, array(
             'om' => $this->getEntityManager()
-        ));
+        ));*/
+        $form = new $this->form($this->route, $this->entity, $this->getEntityManager());
+        $basePath = $this->getRequest()->getRequestUri();
+        $form->setAttribute('action',$basePath);
+        $form->setLabel('Adicionar '.$this->title);
         if ($this->getRequest()->isPost()) {
             $form->setData(
                 array_merge_recursive(
@@ -75,9 +86,13 @@ abstract class AbstractCrudController extends AbstractActionController
          * @var $form Form
          */
         //@todo verificar outra forma de passar o nome para o form. Não utilizar a rota
-        $form = new $this->form($this->route, array(
+        /*$form = new $this->form($this->route, array(
             'om' => $this->getEntityManager()
-        ));
+        ));*/
+        $form = new $this->form($this->route, $this->entity, $this->getEntityManager());
+        $basePath = $this->getRequest()->getRequestUri();
+        $form->setAttribute('action',$basePath);
+        $form->setLabel('Editar '.$this->title);
         $id = $this->params()->fromRoute('id');
         $object = $this->getRepository()->findOneById($id);
         $form->bind($object);

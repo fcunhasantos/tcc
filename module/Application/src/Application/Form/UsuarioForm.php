@@ -1,42 +1,41 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Felipe
+ * Date: 18/07/2016
+ * Time: 22:06
+ */
+
 namespace Application\Form;
 
-use Zend\Form\Form;
-use Application\Entity\Usuario;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
-use Zend\InputFilter\InputFilter;
 
-class UsuarioForm extends Form
+class UsuarioForm extends AbstractCrudForm
 {
-    protected $objectManager;
-    protected $arrayPerfil;
+    private $arrayPerfil;
 
-    public function __construct($name = null, $options = array())
+    public function __construct($name, $entity, $entityManager)
     {
-        parent::__construct($name, $options);
-        $this->objectManager = $options['om'];
-        $this->carregaPefilArray();
-        $this->setObject(new Usuario())
-            ->setHydrator(new DoctrineObject($this->objectManager))
-            ->add(array(
+        $this->carregaPefilArray($entityManager);
+        $this->fields = array(
+            array(
                 'type' => 'hidden',
                 'name' => 'id'
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'nome',
                 'type' => 'Text',
                 'attributes' => array(
                     'class' => 'form-control input-sm'
                 )
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'email',
                 'type' => 'Email',
                 'attributes' => array(
                     'class' => 'form-control input-sm',
                 )
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'perfil',
                 'type' => 'Select',
                 'options' => array(
@@ -45,39 +44,41 @@ class UsuarioForm extends Form
                 'attributes' => array(
                     'class' => 'form-control input-sm',
                 )
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'senha',
                 'type' => 'Password',
                 'attributes' => array(
                     'class' => 'form-control input-sm',
                 )
-            ));
+            )
+        );
 
-        $filter = new InputFilter();
-        $filter
-            ->add(array(
+        $this->filters = array(
+            array(
                 'name' => 'nome',
                 'required' => true
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'email',
                 'required' => true
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'perfil',
                 'required' => true
-            ))
-            ->add(array(
+            ),
+            array(
                 'name' => 'senha',
                 'required' => true
-            ));
-        $this->setInputFilter($filter);
+            )
+        );
+
+        parent::__construct($name, $entity, $entityManager);
     }
 
-    private function carregaPefilArray()
+    private function carregaPefilArray($entityManager)
     {
-        $perfis = $this->objectManager->getRepository('Application\Entity\Perfil')->findAll();
+        $perfis = $entityManager->getRepository('Application\Entity\Perfil')->findAll();
         foreach ($perfis as $perfil) {
             $this->arrayPerfil[$perfil->getId()] = $perfil->getNome();
         }
