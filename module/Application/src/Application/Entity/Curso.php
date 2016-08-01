@@ -64,6 +64,17 @@ class Curso
     private $instrutor;
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'titulo' => $this->titulo,
+            'palavrasChave' => $this->palavrasChave,
+            'dataLimite' => $this->dataLimite->format('d/m/Y'),
+            'categoriaCurso' => $this->categoriaCurso->toArray(),
+            'instrutor' => $this->instrutor->toArray()
+        );
+    }
 
     /**
      * Get id

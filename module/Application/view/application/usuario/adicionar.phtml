@@ -2,7 +2,7 @@
    href="<?php echo $this->url('usuario'); ?>">
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
 </a>
-<h3>Adicionar Usuário</h3>
+<h3><?php echo utf8_encode($form->getLabel()); ?></h3>
 <?php echo $this->form()->openTag($form);?>
 <div class="form-group">
     <label for="inputNome">Nome</label>

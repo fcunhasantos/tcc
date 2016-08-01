@@ -72,6 +72,16 @@ return array(
                     )
                 ),
             ),
+            'curso' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/curso[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Curso',
+                        'action' => 'index'
+                    )
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -131,6 +141,7 @@ return array(
             'Application\Controller\Instrutor' => Controller\InstrutorController::class,
             'Application\Controller\CategoriaCurso' => Controller\CategoriaCursoController::class,
             'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
+            'Application\Controller\Curso' => Controller\CursoController::class,
         ),
     ),
     'doctrine' => array(
