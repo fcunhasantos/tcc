@@ -10,6 +10,7 @@ app.controller('indexController', function($scope) {
 });
 
 app.controller('indexRowController', function($scope, $window) {
+    console.log($scope.row);
     $scope.edit = function() {
         window.location = "editar/"+$scope.row.id;
     };

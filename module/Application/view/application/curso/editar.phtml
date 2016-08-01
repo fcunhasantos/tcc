@@ -1,0 +1,30 @@
+<a class="btn btn-sm btn-primary pull-right"
+   href="<?php echo $this->url('curso'); ?>">
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+</a>
+<h3><?php echo utf8_encode($form->getLabel()); ?></h3>
+<?php echo $this->form()->openTag($form);?>
+<div class="form-group">
+    <label for="inputTitulo">Título</label>
+    <?php echo $this->formInput($form->get('titulo'));?>
+</div>
+<div class="form-group">
+    <label for="inputPalavrasChave">Palavras Chave</label>
+    <?php echo $this->formTextArea($form->get('palavrasChave'));?>
+</div>
+<div class="form-group">
+    <label for="inputDataLimite">Data Limite</label>
+    <?php echo $this->formDate($form->get('dataLimite'));?>
+</div>
+<div class="form-group">
+    <label for="inputCategoria">Categoria</label>
+    <?php echo $this->formSelect($form->get('categoriaCurso'));?>
+</div>
+<div class="form-group">
+    <label for="inputInstrutor">Instrutor</label>
+    <?php echo $this->formSelect($form->get('instrutor'));?>
+</div>
+<div class="form-group">
+    <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />
+</div>
+<?php echo $this->form()->closeTag($form);?>
