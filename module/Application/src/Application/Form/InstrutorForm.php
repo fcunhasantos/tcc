@@ -9,23 +9,23 @@
 namespace Application\Form;
 
 
-class PerfilForm extends AbstractCrudForm
+class InstrutorForm extends AbstractCrudForm
 {
     public function __construct($name, $entity, $entityManager)
     {
         $this->fields = array(
             array(
-                'type' => 'hidden',
-                'name' => 'id'
-            ),
-            array(
                 'name' => 'nome',
                 'type' => 'Text',
-                'options' => array(
-                    'label' => 'Nome'
-                ),
                 'attributes' => array(
                     'class' => 'form-control input-sm'
+                )
+            ),
+            array(
+                'name' => 'email',
+                'type' => 'Email',
+                'attributes' => array(
+                    'class' => 'form-control input-sm',
                 )
             ),
         );
@@ -35,6 +35,10 @@ class PerfilForm extends AbstractCrudForm
                 'name' => 'nome',
                 'required' => true
             ),
+            array(
+                'name' => 'email',
+                'required' => true
+            )
         );
 
         parent::__construct($name, $entity, $entityManager);

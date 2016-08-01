@@ -30,6 +30,13 @@ class CategoriaCurso
     private $nome;
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'nome' => $this->nome
+        );
+    }
 
     /**
      * Get id

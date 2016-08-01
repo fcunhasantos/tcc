@@ -27,7 +27,7 @@ return array(
                 'options' => array(
                     'route' => '/perfil[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\PerfilIndex',
+                        'controller' => 'Application\Controller\Perfil',
                         'action' => 'index'
                     )
                 ),
@@ -37,7 +37,37 @@ return array(
                 'options' => array(
                     'route' => '/usuario[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\UsuarioIndex',
+                        'controller' => 'Application\Controller\Usuario',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'instrutor' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/instrutor[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Instrutor',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'categoriacurso' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/categoriacurso[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\CategoriaCurso',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'tipoatividade' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/tipoatividade[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\TipoAtividade',
                         'action' => 'index'
                     )
                 ),
@@ -96,8 +126,11 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
-            'Application\Controller\PerfilIndex' => Controller\PerfilController::class,
-            'Application\Controller\UsuarioIndex' => Controller\UsuarioController::class
+            'Application\Controller\Perfil' => Controller\PerfilController::class,
+            'Application\Controller\Usuario' => Controller\UsuarioController::class,
+            'Application\Controller\Instrutor' => Controller\InstrutorController::class,
+            'Application\Controller\CategoriaCurso' => Controller\CategoriaCursoController::class,
+            'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
         ),
     ),
     'doctrine' => array(
@@ -132,6 +165,18 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    'view_helpers' => [
+        'factories' => [
+            'formelementerrors' => function($vhm) {
+                $fee = new \Zend\Form\View\Helper\FormElementErrors();
+                $fee->setAttributes([
+                    'class' => 'alert alert-warning',
+                    'role' => 'alert'
+                ]);
+                return $fee;
+            }
+        ]
+    ],
     // Placeholder for console routes
     'console' => array(
         'router' => array(

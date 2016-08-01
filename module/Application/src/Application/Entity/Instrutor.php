@@ -37,6 +37,14 @@ class Instrutor
     private $email;
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'email' => $this->email
+        );
+    }
 
     /**
      * Get id
