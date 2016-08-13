@@ -3,36 +3,36 @@
     <h3><?php echo utf8_encode($title); ?></h3>
 
     <form class="navbar-form navbar-right" role="search">
+        <div class="form-group has-feedback">
+            <a class="btn btn-sm btn-primary" ng-click="add()" href="#">
+                <span class="glyphicon glyphicon-plus"></span> Novo
+            </a>
+        </div>
         <!-- Filtros e Ordenação -->
         <div class="form-group has-feedback">
             <input type="search" class="form-control input-sm" aria-describedby="Pesquisar" placeholder="Pesquisar..." ng-model="filtro.$">
         </div>
-        <!-- Novo -->
-        <div class="form-group has-feedback">
-            <a class="btn btn-sm btn-primary pull-right" ng-click="add()" href="#">
-                <span class="glyphicon glyphicon-plus"></span> Adicionar
-            </a>
-        </div>
     </form>
 
-    <table class="table table-bordered table-condensed">
-        <tr>
-            <th>Nome</th>
-            <th>Editar</th>
-            <th>Remover</th>
-        </tr>
-        <tr ng-repeat="row in data | filter:filtro">
-            <td>
-                {{row.nome}}
-            </td>
-            <td ng-controller="indexRowController">
-                <a class="edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-edit"></span> Editar</a>
-            </td>
-            <td ng-controller="indexRowController">
-                <a class="add" href="#" data-toggle="modal" data-target=".modal-confirmDelete"> <span class="glyphicon glyphicon-trash"></span> Remover</a>
-                <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
-            </td>
-        </tr>
+    <table id="indexTable" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="registro" id={{row.id}} ng-repeat="row in data | filter:filtro" ng-controller="indexRowController" ng-click="selectRow()">
+                <td>
+                    {{row.nome}}
+                </td>
+                <td>
+                    <a class="hover-btn edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="hover-btn add" href="#" data-toggle="modal" data-target=".modal-confirmDelete" title="Remover"> <span class="glyphicon glyphicon-trash"></span></a>
+                    <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
 </div>

@@ -22,6 +22,16 @@ return array(
                     ),
                 ),
             ),
+            'atividade' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/atividade[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Atividade',
+                        'action' => 'index'
+                    )
+                ),
+            ),
             'perfil' => array(
                 'type' => 'segment',
                 'options' => array(
@@ -136,6 +146,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
+            'Application\Controller\Atividade' => Controller\AtividadeController::class,
             'Application\Controller\Perfil' => Controller\PerfilController::class,
             'Application\Controller\Usuario' => Controller\UsuarioController::class,
             'Application\Controller\Instrutor' => Controller\InstrutorController::class,

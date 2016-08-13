@@ -45,3 +45,11 @@ div.container a.brand {
 .alert > li {
     margin-left: 10px;
 }
+
+.hover-btn {
+    visibility: hidden;
+}
+
+.registro:hover .hover-btn, .active .hover-btn {
+    visibility: visible;
+}
