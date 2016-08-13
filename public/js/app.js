@@ -10,7 +10,13 @@ app.controller('indexController', function($scope) {
 });
 
 app.controller('indexRowController', function($scope, $window) {
-    console.log($scope.row);
+    $scope.selectRow = function() {
+        if ($('#'+$scope.row.id).hasClass('active')) {
+            $('#'+$scope.row.id).removeClass('active');
+        } else {
+            $('#'+$scope.row.id).addClass('active').siblings().removeClass('active');
+        }
+    };
     $scope.edit = function() {
         window.location = "editar/"+$scope.row.id;
     };
