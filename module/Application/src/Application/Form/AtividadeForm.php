@@ -12,12 +12,12 @@ namespace Application\Form;
 class AtividadeForm extends AbstractCrudForm
 {
     private $arrayCurso;
-    private $arrayTipo;
+    private $arrayTipoAtividade;
 
     public function __construct($name, $entity, $entityManager)
     {
         $this->carregaCursoArray($entityManager);
-        $this->carregaTipoArray($entityManager);
+        $this->carregaTipoAtividadeArray($entityManager);
         $this->fields = array(
             array(
                 'name' => 'nome',
@@ -44,10 +44,10 @@ class AtividadeForm extends AbstractCrudForm
                 )
             ),
             array(
-                'name' => 'tipoatividade',
+                'name' => 'tipoAtividade',
                 'type' => 'Select',
                 'options' => array(
-                    'value_options' => $this->arrayTipo,
+                    'value_options' => $this->arrayTipoAtividade,
                 ),
                 'attributes' => array(
                     'class' => 'form-control input-sm',
@@ -58,6 +58,18 @@ class AtividadeForm extends AbstractCrudForm
         $this->filters = array(
             array(
                 'name' => 'nome',
+                'required' => true
+            ),
+            array(
+                'name' => 'descricao',
+                'required' => true
+            ),
+            array(
+                'name' => 'curso',
+                'required' => true
+            ),
+            array(
+                'name' => 'tipoAtividade',
                 'required' => true
             )
         );
@@ -73,11 +85,11 @@ class AtividadeForm extends AbstractCrudForm
         }
     }
 
-    private function carregaTipoArray($entityManager)
+    private function carregaTipoAtividadeArray($entityManager)
     {
         $tipos = $entityManager->getRepository('Application\Entity\TipoAtividade')->findAll();
         foreach ($tipos as $tipo) {
-            $this->arrayTipo[$tipo->getId()] = $tipo->getNome();
+            $this->arrayTipoAtividade[$tipo->getId()] = $tipo->getNome();
         }
     }
 }

@@ -61,7 +61,10 @@ class Atividade
     {
         return array(
             'id' => $this->id,
-            'nome' => $this->nome
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'curso' => $this->curso->toArray(),
+            'tipoAtividade' => $this->tipoAtividade->toArray()
         );
     }
 
