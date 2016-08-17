@@ -47,6 +47,15 @@ class Questao
     private $atividade;
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'descricao' => $this->descricao,
+            'resposta' => $this->resposta,
+            'atividade' => $this->atividade->toArray()
+        );
+    }
 
     /**
      * Get id

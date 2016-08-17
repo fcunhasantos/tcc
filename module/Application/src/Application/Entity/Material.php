@@ -46,7 +46,15 @@ class Material
      */
     private $curso;
 
-
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'arquivo' => $this->arquivo,
+            'curso' => $this->curso->toArray()
+        );
+    }
 
     /**
      * Get id
