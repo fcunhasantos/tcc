@@ -39,7 +39,14 @@ class Resposta
      */
     private $questao;
 
-
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'descricao' => $this->descricao,
+            'questao' => $this->questao->toArray()
+        );
+    }
 
     /**
      * Get id

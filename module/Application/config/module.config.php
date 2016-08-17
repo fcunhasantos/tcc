@@ -32,22 +32,22 @@ return array(
                     )
                 ),
             ),
-            'perfil' => array(
+            'categoriacurso' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/perfil[/:action][/:id][/]',
+                    'route' => '/categoriacurso[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Perfil',
+                        'controller' => 'Application\Controller\CategoriaCurso',
                         'action' => 'index'
                     )
                 ),
             ),
-            'usuario' => array(
+            'curso' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/usuario[/:action][/:id][/]',
+                    'route' => '/curso[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Usuario',
+                        'controller' => 'Application\Controller\Curso',
                         'action' => 'index'
                     )
                 ),
@@ -62,12 +62,42 @@ return array(
                     )
                 ),
             ),
-            'categoriacurso' => array(
+            'material' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/categoriacurso[/:action][/:id][/]',
+                    'route' => '/material[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\CategoriaCurso',
+                        'controller' => 'Application\Controller\Material',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'perfil' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/perfil[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Perfil',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'questao' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/questao[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Questao',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'resposta' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/resposta[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Resposta',
                         'action' => 'index'
                     )
                 ),
@@ -82,12 +112,12 @@ return array(
                     )
                 ),
             ),
-            'curso' => array(
+            'usuario' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/curso[/:action][/:id][/]',
+                    'route' => '/usuario[/:action][/:id][/]',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Curso',
+                        'controller' => 'Application\Controller\Usuario',
                         'action' => 'index'
                     )
                 ),
@@ -147,12 +177,15 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\Atividade' => Controller\AtividadeController::class,
-            'Application\Controller\Perfil' => Controller\PerfilController::class,
-            'Application\Controller\Usuario' => Controller\UsuarioController::class,
-            'Application\Controller\Instrutor' => Controller\InstrutorController::class,
             'Application\Controller\CategoriaCurso' => Controller\CategoriaCursoController::class,
-            'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
             'Application\Controller\Curso' => Controller\CursoController::class,
+            'Application\Controller\Instrutor' => Controller\InstrutorController::class,
+            'Application\Controller\Material' => Controller\MaterialController::class,
+            'Application\Controller\Perfil' => Controller\PerfilController::class,
+            'Application\Controller\Questao' => Controller\QuestaoController::class,
+            'Application\Controller\Resposta' => Controller\RespostaController::class,
+            'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
+            'Application\Controller\Usuario' => Controller\UsuarioController::class,
         ),
     ),
     'doctrine' => array(
@@ -196,9 +229,16 @@ return array(
                     'role' => 'alert'
                 ]);
                 return $fee;
-            }
-        ]
+            },
+        ],
     ],
+    'validators' => array(
+        'invokables' => array(
+            'not-empty' => 'Application\Validator\NotEmpty',
+            \Zend\Validator\NotEmpty::IS_EMPTY => 'Application\Validator\NotEmpty'
+            // etc.
+        ),
+    ),
     // Placeholder for console routes
     'console' => array(
         'router' => array(
