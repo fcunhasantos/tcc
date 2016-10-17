@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" ng-init='inscricao = <?php echo json_encode($inscricao); ?>'>
+
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">{{inscricao.curso.titulo}}</h3>
+            </div>
+
+            <div class="panel-body">
+                <div>
+                    <h3>Detalhes</h3>
+                    <p>Data Limite: {{inscricao.curso.dataLimite}}</p>
+                    <p>Instrutor: {{inscricao.curso.instrutor.nome}}</p>
+                    <h3>Atividades</h3>
+                    <div ng-init='atividades = <?php echo json_encode($atividades); ?>'>
+                        <ul ng-repeat="atividade in atividades | filter:filtro">
+                            <li>
+                                <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="minhaatividade()">
+                                    {{atividade.nome}} - {{atividade.tipoAtividade.nome}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3>Materiais</h3>
+                    <div ng-init='materiais = <?php echo json_encode($materiais); ?>'>
+                        <ul ng-repeat="material in materiais | filter:filtro">
+                            <li>
+                                <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="meumaterial()">
+                                    {{material.nome}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

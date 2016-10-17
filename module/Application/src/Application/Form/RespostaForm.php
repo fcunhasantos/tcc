@@ -16,19 +16,28 @@ class RespostaForm extends AbstractCrudForm
     public function __construct($name, $entity, $entityManager)
     {
         $this->carregaQuestaoArray($entityManager);
+        $this->attributes = array(
+            'class' => 'form'
+        );
         $this->fields = array(
             array(
-                'name' => 'nome',
+                'name' => 'descricao',
                 'type' => 'Text',
                 'attributes' => array(
                     'class' => 'form-control input-sm'
                 )
             ),
             array(
-                'name' => 'descricao',
-                'type' => 'Text',
+                'name' => 'idcorreta',
+                'type' => 'Select',
+                'options' => array(
+                    'value_options' => array(
+                        'N' => 'Não',
+                        'S' => 'Sim'
+                    ),
+                ),
                 'attributes' => array(
-                    'class' => 'form-control input-sm'
+                    'class' => 'form-control input-sm',
                 )
             ),
             array(
@@ -45,11 +54,11 @@ class RespostaForm extends AbstractCrudForm
 
         $this->filters = array(
             array(
-                'name' => 'nome',
+                'name' => 'descricao',
                 'required' => true
             ),
             array(
-                'name' => 'descricao',
+                'name' => 'idcorreta',
                 'required' => true
             ),
             array(
@@ -65,7 +74,7 @@ class RespostaForm extends AbstractCrudForm
     {
         $questoes = $entityManager->getRepository('Application\Entity\Questao')->findAll();
         foreach ($questoes as $questao) {
-            $this->arrayQuestao[$questao->getId()] = $questao->getNome();
+            $this->arrayQuestao[$questao->getId()] = $questao->getDescricao();
         }
     }
 }

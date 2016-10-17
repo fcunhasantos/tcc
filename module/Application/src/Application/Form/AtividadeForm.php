@@ -13,11 +13,13 @@ class AtividadeForm extends AbstractCrudForm
 {
     private $arrayCurso;
     private $arrayTipoAtividade;
+    private $arrayUnidade;
 
     public function __construct($name, $entity, $entityManager)
     {
         $this->carregaCursoArray($entityManager);
         $this->carregaTipoAtividadeArray($entityManager);
+        $this->carregaUnidadeArray($entityManager);
         $this->fields = array(
             array(
                 'name' => 'nome',
@@ -52,7 +54,24 @@ class AtividadeForm extends AbstractCrudForm
                 'attributes' => array(
                     'class' => 'form-control input-sm',
                 )
-            )
+            ),
+            array(
+                'name' => 'unidade',
+                'type' => 'Select',
+                'options' => array(
+                    'value_options' => $this->arrayUnidade,
+                ),
+                'attributes' => array(
+                    'class' => 'form-control input-sm',
+                )
+            ),
+            array(
+                'name' => 'nrordem',
+                'type' => 'Number',
+                'attributes' => array(
+                    'class' => 'form-control input-sm'
+                )
+            ),
         );
 
         $this->filters = array(
@@ -71,6 +90,14 @@ class AtividadeForm extends AbstractCrudForm
             array(
                 'name' => 'tipoAtividade',
                 'required' => true
+            ),
+            array(
+                'name' => 'unidade',
+                'required' => true
+            ),
+            array(
+                'name' => 'nrordem',
+                'required' => false
             )
         );
 
@@ -90,6 +117,14 @@ class AtividadeForm extends AbstractCrudForm
         $tipos = $entityManager->getRepository('Application\Entity\TipoAtividade')->findAll();
         foreach ($tipos as $tipo) {
             $this->arrayTipoAtividade[$tipo->getId()] = $tipo->getNome();
+        }
+    }
+
+    private function carregaUnidadeArray($entityManager)
+    {
+        $unidades = $entityManager->getRepository('Application\Entity\Unidade')->findAll();
+        foreach ($unidades as $unidade) {
+            $this->arrayUnidade[$unidade->getId()] = $unidade->getDescricao();
         }
     }
 }

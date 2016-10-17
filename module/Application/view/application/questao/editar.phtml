@@ -5,20 +5,50 @@
 <h3><?php echo $form->getLabel(); ?></h3>
 <?php echo $this->form()->openTag($form);?>
 <div class="form-group">
-    <label for="inputNome">Nome</label>
-    <?php echo $this->formRow($form->get('nome'));?>
-</div>
-<div class="form-group">
     <label for="inputDescricao">Descrição</label>
     <?php echo $this->formRow($form->get('descricao'));?>
 </div>
 <div class="form-group">
-    <label for="inputCurso">Resposta</label>
-    <?php echo $this->formSelect($form->get('resposta'));?>
+    <label for="inputTipo">Atividade</label>
+    <?php $form->get('atividade')->setAttribute('disabled', 'disabled'); echo $this->formSelect($form->get('atividade'));?>
 </div>
 <div class="form-group">
-    <label for="inputTipo">Atividade</label>
-    <?php echo $this->formSelect($form->get('atividade'));?>
+    <div class="panel-group" id="accordionResposta" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordionResposta" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Respostas <?php echo $questao->getId(); ?>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body" ng-init='respostas = <?php echo json_encode($form->getAttribute('respostas')); ?>'>
+                    <a href="<?php echo $this->url('resposta', array('action' => 'adicionar', 'id' => $questao->getId())); ?>">
+                        <span class="glyphicon glyphicon-plus"></span> Nova
+                    </a>
+                    <table id="indexTable" class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Correta</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="row in respostas | filter:filtro">
+                            <tr class="registro accordion-toggle" id=resposta{{row.id}} ng-controller="respostasQuestaoController" ng-click="selectRow()" data-toggle="collapse" data-target="#respostas{{row.id}}">
+                                <td>{{row.descricao}}</td>
+                                <td>{{row.idcorreta == 'S' && 'Sim' || 'Não'}}</td>
+                                <td>
+                                    <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="form-group">
     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />

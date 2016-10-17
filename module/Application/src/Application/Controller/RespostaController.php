@@ -13,6 +13,8 @@ class RespostaController extends AbstractCrudController
 {
     protected $entity = 'Application\Entity\Resposta';
     protected $form = 'Application\Form\RespostaForm';
-    protected $route = 'resposta';
     protected $title = 'Resposta';
+    protected $route = 'resposta';
+    protected $fk1route = 'questao';
+    protected $order = array('questao'=>'ASC','descricao'=>'ASC');
 }

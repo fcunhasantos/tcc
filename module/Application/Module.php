@@ -19,6 +19,23 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $sharedEvents = $eventManager->getSharedManager();
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController','dispatch', function($ev){
+            /**
+             * @var $ev \Zend\Mvc\MvcEvent
+             * @var $auth \Zend\Authentication\AuthenticationService
+             */
+            $auth = $ev->getApplication()->getServiceManager()->get('Zend\Authentication\AuthenticationService');
+            $t = $ev->getTarget();
+            if($auth->hasIdentity()){
+                return;
+            }
+            if($ev->getRouteMatch()->getParam('action') == 'login'){
+                return;
+            }
+            return $t->redirect()->toRoute('auth');
+        }, 99);
     }
 
     public function getConfig()
