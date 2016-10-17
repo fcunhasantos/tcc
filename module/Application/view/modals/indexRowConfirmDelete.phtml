@@ -1,4 +1,4 @@
-<div class="modal fade modal-confirmDelete" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade modal-confirmDelete{{row.id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -7,7 +7,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" ng-click="showConfirmDelete()">Excluir</button>
+                <button type="button" class="btn btn-primary" ng-click="confirmDelete()">Excluir</button>
             </div>
         </div>
     </div>

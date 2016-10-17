@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="panel panel-default" ng-init='atividade = <?php echo json_encode($atividade); ?>'>
+
+        <div class="panel-heading">
+            <h3 class="panel-title text-center">{{atividade.nome}}</h3>
+        </div>
+
+        <div class="panel-body">
+            <form method="POST" name="minhaatividade" action="/tcc/public/minhaatividade/1/1" id="minhaatividade" class="ng-pristine ng-valid">
+                <div ng-repeat="questao in atividade.questoes">
+                    <div class="form-group">
+                        <label for="inputQuestao{{questao.id}}">{{$index+1}} - {{questao.descricao}}</label>
+                        <div ng-repeat="resposta in questao.respostas">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="{{questao.id}}" id="resposta{{resposta.id}}" value="{{resposta.id}}" unchecked>
+                                    {{resposta.descricao}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-sm btn-primary">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

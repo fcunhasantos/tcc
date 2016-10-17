@@ -30,6 +30,13 @@ class Resposta
     private $descricao;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="idcorreta", type="string", length=1, nullable=true)
+     */
+    private $idcorreta;
+
+    /**
      * @var \Application\Entity\Questao
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Questao")
@@ -44,6 +51,7 @@ class Resposta
         return array(
             'id' => $this->id,
             'descricao' => $this->descricao,
+            'idcorreta' => $this->idcorreta,
             'questao' => $this->questao->toArray()
         );
     }
@@ -105,4 +113,22 @@ class Resposta
     {
         return $this->questao;
     }
+
+    /**
+     * @return string
+     */
+    public function getIdcorreta()
+    {
+        return $this->idcorreta;
+    }
+
+    /**
+     * @param string $idcorreta
+     */
+    public function setIdcorreta($idcorreta)
+    {
+        $this->idcorreta = $idcorreta;
+    }
+
+
 }

@@ -5,16 +5,8 @@
 <h3><?php echo $form->getLabel(); ?></h3>
 <?php echo $this->form()->openTag($form);?>
 <div class="form-group">
-    <label for="inputNome">Nome</label>
-    <?php echo $this->formRow($form->get('nome'));?>
-</div>
-<div class="form-group">
     <label for="inputDescricao">Descrição</label>
     <?php echo $this->formRow($form->get('descricao'));?>
-</div>
-<div class="form-group">
-    <label for="inputCurso">Resposta</label>
-    <?php echo $this->formSelect($form->get('resposta'));?>
 </div>
 <div class="form-group">
     <label for="inputTipo">Atividade</label>

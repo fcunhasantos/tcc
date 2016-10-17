@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Atividade
  *
- * @ORM\Table(name="atividade", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_atividade_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_atividade_tipo_atividade1_idx", columns={"tipo_atividade_id"})})
+ * @ORM\Table(name="atividade", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_atividade_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_atividade_tipo_atividade1_idx", columns={"tipo_atividade_id"}), @ORM\Index(name="fk_atividade_unidade1_idx", columns={"unidade_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Application\Repository\AtividadeRepository")
  */
@@ -37,6 +37,13 @@ class Atividade
     private $descricao;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nrordem", type="integer", nullable=false)
+     */
+    private $nrordem;
+
+    /**
      * @var \Application\Entity\Curso
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Curso")
@@ -56,6 +63,16 @@ class Atividade
      */
     private $tipoAtividade;
 
+    /**
+     * @var \Application\Entity\Unidade
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Unidade")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unidade_id", referencedColumnName="id")
+     * })
+     */
+    private $unidade;
+
 
     public function toArray()
     {
@@ -63,8 +80,10 @@ class Atividade
             'id' => $this->id,
             'nome' => $this->nome,
             'descricao' => $this->descricao,
+            'nrordem' => $this->nrordem,
             'curso' => $this->curso->toArray(),
-            'tipoAtividade' => $this->tipoAtividade->toArray()
+            'tipoAtividade' => $this->tipoAtividade->toArray(),
+            'unidade' => $this->unidade->toArray()
         );
     }
 
@@ -127,6 +146,30 @@ class Atividade
     }
 
     /**
+     * Set nrordem
+     *
+     * @param int $nrordem
+     *
+     * @return Material
+     */
+    public function setNrordem($nrordem)
+    {
+        $this->nrordem = $nrordem;
+
+        return $this;
+    }
+
+    /**
+     * Get nrordem
+     *
+     * @return int
+     */
+    public function getNrordem()
+    {
+        return $this->nrordem;
+    }
+
+    /**
      * Set curso
      *
      * @param \Application\Entity\Curso $curso
@@ -172,5 +215,29 @@ class Atividade
     public function getTipoAtividade()
     {
         return $this->tipoAtividade;
+    }
+
+    /**
+     * Set unidade
+     *
+     * @param \Application\Entity\Unidade $unidade
+     *
+     * @return Material
+     */
+    public function setUnidade(\Application\Entity\Unidade $unidade = null)
+    {
+        $this->unidade = $unidade;
+
+        return $this;
+    }
+
+    /**
+     * Get unidade
+     *
+     * @return \Application\Entity\Unidade
+     */
+    public function getUnidade()
+    {
+        return $this->unidade;
     }
 }

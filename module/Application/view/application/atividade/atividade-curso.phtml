@@ -1,0 +1,54 @@
+<div ng-controller="indexController" ng-init='data = <?php echo json_encode($data); ?>'>
+
+    <h3><?php echo utf8_encode($title); ?></h3>
+
+    <form class="navbar-form navbar-right" role="search">
+        <div class="form-group has-feedback">
+            <a class="btn btn-sm btn-primary pull-left"
+               href="<?php echo $this->url('curso'); ?>">
+                <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+            </a>
+            <a class="btn btn-sm btn-primary" ng-click="add()" href="#">
+                <span class="glyphicon glyphicon-plus"></span> Novo
+            </a>
+        </div>
+        <!-- Filtros e Ordenação -->
+        <div class="form-group has-feedback">
+            <input type="search" class="form-control input-sm" aria-describedby="Pesquisar" placeholder="Pesquisar..." ng-model="filtro.$">
+        </div>
+    </form>
+
+    <table id="indexTable" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Curso</th>
+                <th>Tipo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="registro" id={{row.id}} ng-repeat="row in data | filter:filtro" ng-controller="indexAtividadeCursoController" ng-click="selectRow()">
+                <td>
+                    {{row.nome}}
+                </td>
+                <td>
+                    {{row.descricao}}
+                </td>
+                <td>
+                    {{row.curso.titulo}}
+                </td>
+                <td>
+                    {{row.tipoAtividade.nome}}
+                </td>
+                <td>
+                    <a class="hover-btn edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="hover-btn add" href="#" data-toggle="modal" data-target=".modal-confirmDelete" title="Remover"> <span class="glyphicon glyphicon-trash"></span></a>
+                    <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

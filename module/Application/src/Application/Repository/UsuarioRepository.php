@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\Repository;
+use Application\Entity\Usuario;
 
 /**
  * UsuarioRepository
@@ -10,4 +11,19 @@ namespace Application\Repository;
  */
 class UsuarioRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByEmailAndSenha(Usuario $usuario, $email, $senha)
+    {
+        /** @var Usuario $userLogin */
+        $userLogin = $this->createQueryBuilder('u')
+            ->where('u.email = :a1')
+            ->setParameter('a1', $email)->getQuery()->getOneOrNullResult();
+
+        if(!is_null($userLogin)){
+            $usuario->setSalt($userLogin->getSalt());
+
+            if($usuario->encryptSenha($senha) == $userLogin->getSenha()){
+                return $userLogin;
+            }
+        }
+    }
 }

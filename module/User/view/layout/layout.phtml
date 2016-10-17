@@ -1,0 +1,81 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Arena Training'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/app.js'))
+            ->prependFile($this->basePath('js/menu.js'))
+            //->prependFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js')
+            ->prependFile($this->basePath('js/angular/angular.min.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+    </head>
+    <body ng-app="app">
+        <nav id="menu" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Arena Training') ?></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="public"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->translate('Cadastros') ?> <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li id="curso"><a href="<?php echo $this->url('curso') ?>"><?php echo $this->translate('Curso') ?></a></li>
+                                <li id="atividade"><a href="<?php echo $this->url('atividade') ?>"><?php echo $this->translate('Atividade') ?></a></li>
+                                <li id="questao"><a href="<?php echo $this->url('questao') ?>"><?php echo $this->translate('Questão') ?></a></li>
+                                <li id="resposta"><a href="<?php echo $this->url('resposta') ?>"><?php echo $this->translate('Resposta') ?></a></li>
+                                <li id="material"><a href="<?php echo $this->url('material') ?>"><?php echo $this->translate('Material') ?></a></li>
+                                <li role="separator" class="divider"></li>
+                                <li id="usuario"><a href="<?php echo $this->url('usuario') ?>"><?php echo $this->translate('Usuário') ?></a></li>
+                                <li id="instrutor"><a href="<?php echo $this->url('instrutor') ?>"><?php echo $this->translate('Instrutor') ?></a></li>
+                                <li role="separator" class="divider"></li>
+                                <li id="perfil"><a href="<?php echo $this->url('perfil') ?>"><?php echo $this->translate('Perfil de Usuário') ?></a></li>
+                                <li id="categoriacurso"><a href="<?php echo $this->url('categoriacurso') ?>"><?php echo $this->translate('Categoria de Curso') ?></a></li>
+                                <li id="tipoatividade"><a href="<?php echo $this->url('tipoatividade') ?>"><?php echo $this->translate('Tipo de Atividade') ?></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link Admin </a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <div>
+            <?php echo $this->content; ?>
+            </div>
+            <hr>
+            <footer>
+                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

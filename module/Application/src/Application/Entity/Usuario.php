@@ -3,6 +3,9 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Crypt\Password\Bcrypt;
+use Zend\Math\Rand;
+use Application\Entity\Perfil;
 
 /**
  * Usuario
@@ -41,7 +44,6 @@ class Usuario
      *
      * @ORM\Column(name="senha", type="string", length=255, nullable=false)
      */
-    //@todo Codificar e decodificar a senha
     private $senha;
 
     /**
@@ -54,6 +56,19 @@ class Usuario
      */
     private $perfil;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=false)
+     */
+    protected $salt;
+
+    protected $perfilId;
+
+    public function __construct()
+    {
+        $this->setSalt(Rand::getString(64, $this->email, true));
+    }
 
     public function toArray()
     {
@@ -61,7 +76,8 @@ class Usuario
             'id' => $this->id,
             'nome' => $this->nome,
             'email' => $this->email,
-            'perfil' => $this->perfil->toArray()
+            'perfil' => $this->perfil->toArray(),
+            'salt' => $this->salt
         );
     }
 
@@ -132,7 +148,7 @@ class Usuario
      */
     public function setSenha($senha)
     {
-        $this->senha = $senha;
+        $this->senha = $this->encryptSenha($senha);
 
         return $this;
     }
@@ -145,6 +161,17 @@ class Usuario
     public function getSenha()
     {
         return $this->senha;
+    }
+
+    /**
+     * @param $senha
+     * @return string
+     */
+    public function encryptSenha($senha)
+    {
+        $bcrypt = new Bcrypt();
+        $bcrypt->setSalt($this->salt);
+        return $bcrypt->create($senha);
     }
 
     /**
@@ -169,5 +196,43 @@ class Usuario
     public function getPerfil()
     {
         return $this->perfil;
+    }
+
+    /**
+     * Get perfil id
+     *
+     * @return integer
+     */
+    public function getPerfilId()
+    {
+        return $this->perfilId;
+    }
+
+    /**
+     * Set perfil id
+     *
+     * @return Usuario
+     */
+    public function setPerfilId($id)
+    {
+        $this->perfilId = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 }

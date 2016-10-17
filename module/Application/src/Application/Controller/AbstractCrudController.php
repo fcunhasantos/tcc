@@ -34,11 +34,15 @@ abstract class AbstractCrudController extends AbstractActionController
     protected $controller;
     protected $action;
 
-    protected $title = 'Início';
+    protected $title = 'InÃ­cio';
 
     public function indexAction()
     {
-        $data = $this->getRepository()->findAll();
+        if($this->order == '') {
+            $data = $this->getRepository()->findAll();
+        } else {
+            $data = $this->getRepository()->findBy(array(),$this->order);
+        }
         $dataArray = array();
         foreach($data as $object){
             $dataArray[] = $object->toArray();
@@ -51,14 +55,12 @@ abstract class AbstractCrudController extends AbstractActionController
 
     public function adicionarAction()
     {
-        //@todo verificar outra forma de passar o nome para o form. Não utilizar a rota
-        /** @var Form $form */
-        /*$form = new $this->form($this->route, array(
-            'om' => $this->getEntityManager()
-        ));*/
-        $form = new $this->form($this->route, $this->entity, $this->getEntityManager());
+        // recebe id da rota quando Ã© selecionada adiÃ§Ã£o a partir do registro pai
+        $id = $this->params()->fromRoute('id');
+        $form = new $this->form($this->route, $this->entity, $this->getEntityManager(), null);
         $basePath = $this->getRequest()->getRequestUri();
         $form->setAttribute('action',$basePath);
+        $form->setAttribute('fk1',$id);
         $form->setLabel('Adicionar '.$this->title);
         if ($this->getRequest()->isPost()) {
             $form->setData(
@@ -71,7 +73,11 @@ abstract class AbstractCrudController extends AbstractActionController
                 $data = $form->getData();
                 $this->getEntityManager()->persist($data);
                 $this->getEntityManager()->flush();
-                $this->redirect()->toRoute($this->route);
+                if($id) {
+                    $this->redirect()->toRoute($this->fk1route, array('action'=>'editar', 'id'=>$id));
+                } else {
+                    $this->redirect()->toRoute($this->route);
+                }
             }
         }
         $form->prepare();
@@ -82,41 +88,45 @@ abstract class AbstractCrudController extends AbstractActionController
 
     public function editarAction()
     {
-        /**
-         * @var $form Form
-         */
-        //@todo verificar outra forma de passar o nome para o form. Não utilizar a rota
-        /*$form = new $this->form($this->route, array(
-            'om' => $this->getEntityManager()
-        ));*/
-        $form = new $this->form($this->route, $this->entity, $this->getEntityManager());
-        $basePath = $this->getRequest()->getRequestUri();
-        $form->setAttribute('action',$basePath);
-        $form->setLabel('Editar '.$this->title);
-        $id = $this->params()->fromRoute('id');
-        $object = $this->getRepository()->findOneById($id);
-        $form->bind($object);
+        try {
+            /**
+             * @var $form Form
+             */
+            //@todo verificar outra forma de passar o nome para o form. Nï¿½o utilizar a rota
+            /*$form = new $this->form($this->route, array(
+                'om' => $this->getEntityManager()
+            ));*/
+            $id = $this->params()->fromRoute('id');
+            $form = new $this->form($this->route, $this->entity, $this->getEntityManager(), $id);
+            $basePath = $this->getRequest()->getRequestUri();
+            $form->setAttribute('action', $basePath);
+            $form->setLabel('Editar ' . $this->title);
+            $object = $this->getRepository()->findOneById($id);
+            $form->bind($object);
 
-        if ($this->getRequest()->isPost()) {
-            $form->setData(
-                array_merge_recursive(
-                    $this->getRequest()->getPost()->toArray(),
-                    $this->getRequest()->getFiles()->toArray()
-                )
-            );
-            if ($form->isValid()) {
-                $data = $form->getData();
-                $this->getEntityManager()->persist($data);
-                $this->getEntityManager()->flush();
-                $this->redirect()->toRoute($this->route);
+            if ($this->getRequest()->isPost()) {
+                $form->setData(
+                    array_merge_recursive(
+                        $this->getRequest()->getPost()->toArray(),
+                        $this->getRequest()->getFiles()->toArray()
+                    )
+                );
+                if ($form->isValid()) {
+                    $data = $form->getData();
+                    $this->getEntityManager()->persist($data);
+                    $this->getEntityManager()->flush();
+                    $this->redirect()->toRoute($this->route);
+                }
             }
+            $form->prepare();
+            //@todo verificar outra forma de passar o nome para o form. Nï¿½o utilizar a rota
+            return array(
+                'form' => $form,
+                $this->route => $object
+            );
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());die;
         }
-        $form->prepare();
-        //@todo verificar outra forma de passar o nome para o form. Não utilizar a rota
-        return array(
-            'form' => $form,
-            $this->route => $object
-        );
     }
 
     public function removerAction()

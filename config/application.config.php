@@ -11,6 +11,9 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
+        'Auth',
+        'User',
+        'DOMPDFModule'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

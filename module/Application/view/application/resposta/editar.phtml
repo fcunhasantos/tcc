@@ -1,5 +1,4 @@
-<a class="btn btn-sm btn-primary pull-right"
-   href="<?php echo $this->url('resposta'); ?>">
+<a class="btn btn-sm btn-primary pull-right" href="javascript:history.back()">
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
 </a>
 <h3><?php echo utf8_encode($form->getLabel()); ?></h3>
@@ -9,8 +8,15 @@
     <?php echo $this->formRow($form->get('descricao'));?>
 </div>
 <div class="form-group">
+    <label for="inputIdcorreta">Correta</label>
+    <?php echo $this->formSelect($form->get('idcorreta'));?>
+</div>
+<div class="form-group">
     <label for="inputTipo">Questão</label>
-    <?php echo $this->formSelect($form->get('questao'));?>
+    <?php if(is_object($form->get('questao')->getValue())){ ?>
+        <input type="hidden" name="questao" value="<?php echo $form->get('questao')->getValue()->getId(); ?>">
+    <?php } ?>
+    <?php $form->get('questao')->setAttribute('disabled', 'disabled'); echo $this->formSelect($form->get('questao'));?>
 </div>
 <div class="form-group">
     <input type="submit" value="Salvar" class="btn btn-sm btn-primary" />

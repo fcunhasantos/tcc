@@ -51,6 +51,16 @@ class Inscricao
 
 
 
+    public function toArray()
+    {
+        return array(
+            'id' => $this->id,
+            'curso' => $this->curso->toArray(),
+            'usuario' => $this->usuario->toArray(),
+            'nota' => $this->nota
+        );
+    }
+
     /**
      * Get id
      *

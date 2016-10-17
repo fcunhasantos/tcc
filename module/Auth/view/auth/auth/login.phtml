@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center"><?php echo $this->translate('Login') ?></h3>
+            </div>
+
+            <div class="panel-body">
+                <!--<?php foreach($this->flashMessenger()->getMessagesFromNamespace('error') as $message) { ?>
+                    <div class="alert alert-danger" role="alert"><?php echo $message ?></div>
+                <?php } ?>-->
+                <div>
+                    <?php
+                    echo $this->flashMessenger()
+                        ->setMessageOpenFormat('<div%s>')
+                        ->setMessageSeparatorString('<p></p>')
+                        ->setMessageCloseString('<button type="button" class="close" data-dismiss="alert">x</button>')
+                        ->render('error', array('alert alert-danger'));
+                    ?>
+                </div>
+                <?php
+                $form = $this->form;
+
+                $form->setAttribute('action', $this->url('auth', array('controller'=>'auth', 'action'=>'login')));
+
+                $form->prepare();
+
+                echo $this->form()->openTag($form);
+                ?>
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <?php echo $this->formRow($form->get('email'));?>
+                </div>
+                <div class="form-group">
+                    <label for="inputSenha">Senha</label>
+                    <?php echo $this->formRow($form->get('senha'));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->formButton($form->get('submit'));?>
+                </div>
+                <?php
+                //echo $this->formCollection($form);
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

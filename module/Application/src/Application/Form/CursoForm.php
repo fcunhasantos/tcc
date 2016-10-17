@@ -14,7 +14,7 @@ class CursoForm extends AbstractCrudForm
     private $arrayCategoria;
     private $arrayInstrutor;
 
-    public function __construct($name, $entity, $entityManager)
+    public function __construct($name, $entity, $entityManager, $id)
     {
         $this->carregaCategoriaArray($entityManager);
         $this->carregaInstrutorArray($entityManager);
@@ -85,6 +85,9 @@ class CursoForm extends AbstractCrudForm
             ),
         );
 
+        $this->setAttribute('atividades', $this->getArrayAtividades($entityManager, $id));
+        $this->setAttribute('materiais', $this->getArrayMateriais($entityManager, $id));
+
         parent::__construct($name, $entity, $entityManager);
     }
 
@@ -102,5 +105,25 @@ class CursoForm extends AbstractCrudForm
         foreach ($instrutores as $instrutor) {
             $this->arrayInstrutor[$instrutor->getId()] = $instrutor->getNome();
         }
+    }
+
+    private function getArrayAtividades($entityManager, $cursoId)
+    {
+        $arrayAtividades = array();
+        $atividades = $entityManager->getRepository('Application\Entity\Atividade')->findByCurso($cursoId);
+        foreach ($atividades as $atividade) {
+            $arrayAtividades[] = $atividade->toArray();
+        }
+        return $arrayAtividades;
+    }
+
+    private function getArrayMateriais($entityManager, $cursoId)
+    {
+        $arrayMateriais = array();
+        $materiais = $entityManager->getRepository('Application\Entity\Material')->findByCurso($cursoId);
+        foreach ($materiais as $material) {
+            $arrayMateriais[] = $material->toArray();
+        }
+        return $arrayMateriais;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Material
  *
- * @ORM\Table(name="material", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_material_curso1_idx", columns={"curso_id"})})
+ * @ORM\Table(name="material", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_material_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_material_unidade1_idx", columns={"unidade_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Application\Repository\MaterialRepository")
  */
@@ -37,6 +37,20 @@ class Material
     private $arquivo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=500, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nrordem", type="integer", nullable=false)
+     */
+    private $nrordem;
+
+    /**
      * @var \Application\Entity\Curso
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Curso")
@@ -46,13 +60,26 @@ class Material
      */
     private $curso;
 
+    /**
+     * @var \Application\Entity\Unidade
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Unidade")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unidade_id", referencedColumnName="id")
+     * })
+     */
+    private $unidade;
+
     public function toArray()
     {
         return array(
             'id' => $this->id,
             'nome' => $this->nome,
             'arquivo' => $this->arquivo,
-            'curso' => $this->curso->toArray()
+            'url' => $this->url,
+            'nrordem' => $this->nrordem,
+            'curso' => $this->curso->toArray(),
+            'unidade' => $this->unidade->toArray()
         );
     }
 
@@ -99,7 +126,11 @@ class Material
      */
     public function setArquivo($arquivo)
     {
-        $this->arquivo = $arquivo;
+        if (is_array($arquivo)) {
+            $this->arquivo = $arquivo['tmp_name'];
+        } else {
+            $this->arquivo = $arquivo;
+        }
 
         return $this;
     }
@@ -112,6 +143,54 @@ class Material
     public function getArquivo()
     {
         return $this->arquivo;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Material
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set nrordem
+     *
+     * @param int $nrordem
+     *
+     * @return Material
+     */
+    public function setNrordem($nrordem)
+    {
+        $this->nrordem = $nrordem;
+
+        return $this;
+    }
+
+    /**
+     * Get nrordem
+     *
+     * @return int
+     */
+    public function getNrordem()
+    {
+        return $this->nrordem;
     }
 
     /**
@@ -136,5 +215,29 @@ class Material
     public function getCurso()
     {
         return $this->curso;
+    }
+
+    /**
+     * Set unidade
+     *
+     * @param \Application\Entity\Unidade $unidade
+     *
+     * @return Material
+     */
+    public function setUnidade(\Application\Entity\Unidade $unidade = null)
+    {
+        $this->unidade = $unidade;
+
+        return $this;
+    }
+
+    /**
+     * Get unidade
+     *
+     * @return \Application\Entity\Curso
+     */
+    public function getUnidade()
+    {
+        return $this->unidade;
     }
 }

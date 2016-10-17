@@ -12,6 +12,16 @@ namespace Application;
 return array(
     'router' => array(
         'routes' => array(
+            'pdf' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/pdf',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Pdf',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -22,6 +32,16 @@ return array(
                     ),
                 ),
             ),
+            'logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/logout',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'logout',
+                    ),
+                ),
+            ),
             'atividade' => array(
                 'type' => 'segment',
                 'options' => array(
@@ -29,6 +49,19 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\Atividade',
                         'action' => 'index'
+                    )
+                ),
+            ),
+            'atividadeCurso' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/atividadeCurso/:curso[/:action][/:id][/]',
+                    'constraints' => array(
+                        'curso' => '[0-9]*'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Atividade',
+                        'action' => 'atividadeCurso'
                     )
                 ),
             ),
@@ -95,7 +128,7 @@ return array(
             'resposta' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/resposta[/:action][/:id][/]',
+                    'route' => '/resposta[/:action][/:id][/:questao][/]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Resposta',
                         'action' => 'index'
@@ -108,6 +141,16 @@ return array(
                     'route' => '/tipoatividade[/:action][/:id][/]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\TipoAtividade',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'unidade' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/unidade[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Unidade',
                         'action' => 'index'
                     )
                 ),
@@ -185,7 +228,9 @@ return array(
             'Application\Controller\Questao' => Controller\QuestaoController::class,
             'Application\Controller\Resposta' => Controller\RespostaController::class,
             'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
+            'Application\Controller\Unidade' => Controller\UnidadeController::class,
             'Application\Controller\Usuario' => Controller\UsuarioController::class,
+            'Application\Controller\Pdf' => 'Application\Controller\PdfController'
         ),
     ),
     'doctrine' => array(

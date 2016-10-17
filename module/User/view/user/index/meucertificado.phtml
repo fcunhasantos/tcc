@@ -1,0 +1,43 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        width: 1000px;
+        height: 660px;
+        margin: auto auto;
+        padding: 10px 10px;
+        border:2px solid #006400;
+        text-align: center;
+    }
+    .mainTitle {
+        font: bold 40px Old English Text MT, serif
+    }
+    .courseTitle {
+        font: 20px Calibri, serif
+    }
+    .personTitle {
+        font: italic bold 35px Monotype Corsiva, serif
+    }
+    .info {
+        font: 12px Helvetica, serif
+    }
+</style>
+<div class="container">
+
+    <p class="mainTitle">Certificado de Conclusão</p>
+
+    <p class="courseTitle"><?php echo $this->tituloCurso ?></p>
+    <p class="info">Detalhes Curso</p>
+
+    <p class="personTitle"><?php echo $this->usuarioNome ?></p>
+
+    <p class="info">
+        Concluído com êxito <br>
+        Período: <br>
+        Instrutor: <?php echo $this->instrutorNome ?>
+    </p>
+
+    <img src="/tcc/public/img/colosseum-img.png" alt="Arena Training"/>
+
+</div>

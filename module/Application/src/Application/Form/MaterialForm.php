@@ -8,14 +8,17 @@
 
 namespace Application\Form;
 
+use Application\Validator\UploadFilter;
 
 class MaterialForm extends AbstractCrudForm
 {
     private $arrayCurso;
+    private $arrayUnidade;
 
     public function __construct($name, $entity, $entityManager)
     {
         $this->carregaCursoArray($entityManager);
+        $this->carregaUnidadeArray($entityManager);
         $this->fields = array(
             array(
                 'name' => 'nome',
@@ -32,6 +35,13 @@ class MaterialForm extends AbstractCrudForm
                 )
             ),
             array(
+                'name' => 'url',
+                'type' => 'Text',
+                'attributes' => array(
+                    'class' => 'form-control input-sm'
+                )
+            ),
+            array(
                 'name' => 'curso',
                 'type' => 'Select',
                 'options' => array(
@@ -40,7 +50,24 @@ class MaterialForm extends AbstractCrudForm
                 'attributes' => array(
                     'class' => 'form-control input-sm',
                 )
-            )
+            ),
+            array(
+                'name' => 'unidade',
+                'type' => 'Select',
+                'options' => array(
+                    'value_options' => $this->arrayUnidade,
+                ),
+                'attributes' => array(
+                    'class' => 'form-control input-sm',
+                )
+            ),
+            array(
+                'name' => 'nrordem',
+                'type' => 'Number',
+                'attributes' => array(
+                    'class' => 'form-control input-sm'
+                )
+            ),
         );
 
         $this->filters = array(
@@ -72,12 +99,25 @@ class MaterialForm extends AbstractCrudForm
                 )
             ),
             array(
+                'name' => 'url',
+                'required' => true
+            ),
+            array(
                 'name' => 'curso',
+                'required' => true
+            ),
+            array(
+                'name' => 'unidade',
+                'required' => true
+            ),
+            array(
+                'name' => 'nrordem',
                 'required' => true
             )
         );
 
         parent::__construct($name, $entity, $entityManager);
+        $this->setInputFilter(new UploadFilter('arquivo'));
     }
 
     private function carregaCursoArray($entityManager)
@@ -85,6 +125,14 @@ class MaterialForm extends AbstractCrudForm
         $cursos = $entityManager->getRepository('Application\Entity\Curso')->findAll();
         foreach ($cursos as $curso) {
             $this->arrayCurso[$curso->getId()] = $curso->getTitulo();
+        }
+    }
+
+    private function carregaUnidadeArray($entityManager)
+    {
+        $unidades = $entityManager->getRepository('Application\Entity\Unidade')->findAll();
+        foreach ($unidades as $unidade) {
+            $this->arrayUnidade[$unidade->getId()] = $unidade->getDescricao();
         }
     }
 }
