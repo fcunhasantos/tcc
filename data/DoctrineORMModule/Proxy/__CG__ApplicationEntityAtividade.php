@@ -64,10 +64,10 @@ class Atividade extends \Application\Entity\Atividade implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nome', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'descricao', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'curso', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'tipoAtividade'];
+            return ['__isInitialized__', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nome', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'descricao', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nrordem', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'curso', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'tipoAtividade', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'unidade'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nome', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'descricao', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'curso', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'tipoAtividade'];
+        return ['__isInitialized__', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'id', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nome', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'descricao', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'nrordem', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'curso', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'tipoAtividade', '' . "\0" . 'Application\\Entity\\Atividade' . "\0" . 'unidade'];
     }
 
     /**
@@ -246,6 +246,28 @@ class Atividade extends \Application\Entity\Atividade implements \Doctrine\ORM\P
     /**
      * {@inheritDoc}
      */
+    public function setNrordem($nrordem)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNrordem', [$nrordem]);
+
+        return parent::setNrordem($nrordem);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getNrordem()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNrordem', []);
+
+        return parent::getNrordem();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setCurso(\Application\Entity\Curso $curso = NULL)
     {
 
@@ -285,6 +307,28 @@ class Atividade extends \Application\Entity\Atividade implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getTipoAtividade', []);
 
         return parent::getTipoAtividade();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUnidade(\Application\Entity\Unidade $unidade = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUnidade', [$unidade]);
+
+        return parent::setUnidade($unidade);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUnidade()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUnidade', []);
+
+        return parent::getUnidade();
     }
 
 }
