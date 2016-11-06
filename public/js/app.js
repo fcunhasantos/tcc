@@ -55,6 +55,19 @@ app.controller('atividadesCursoController', function($scope) {
     };
 });
 
+app.controller('videosCursoController', function($scope) {
+    $scope.edit = function() {
+        window.location.href = window.location.origin + '/tcc/public/video/editar/' + $scope.row.id;
+    };
+    $scope.delete = function() {
+        window.location.href = window.location.origin + '/tcc/public/video/remover/' + $scope.row.id;
+    };
+    $scope.showConfirmDelete = function() {
+        $scope.delete();
+        $(".modal-confirmDelete").modal('hide');
+    };
+});
+
 app.controller('materiaisCursoController', function($scope) {
     $scope.edit = function() {
         window.location.href = window.location.origin + '/tcc/public/material/editar/' + $scope.row.id;
@@ -111,7 +124,16 @@ app.controller('meusCursosController', function($scope) {
     };
 });
 
+app.controller('meuCursoUnidadeController', function($scope) {
+    $scope.filtroUnidade = function(item) {
+        return item.unidade.id === $scope.unidade.id ? true : false;
+    };
+});
+
 app.controller('meuCursoAtividadeController', function($scope) {
+    $scope.meuvideo = function() {
+        window.location.href = window.location.origin + '/tcc/public/meuvideo/'+$scope.inscricao.id+'/'+$scope.video.id;
+    };
     $scope.minhaatividade = function() {
         window.location.href = window.location.origin + '/tcc/public/minhaatividade/'+$scope.inscricao.id+'/'+$scope.atividade.id;
     };

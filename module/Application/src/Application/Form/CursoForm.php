@@ -85,6 +85,7 @@ class CursoForm extends AbstractCrudForm
             ),
         );
 
+        $this->setAttribute('videos', $this->getArrayVideos($entityManager, $id));
         $this->setAttribute('atividades', $this->getArrayAtividades($entityManager, $id));
         $this->setAttribute('materiais', $this->getArrayMateriais($entityManager, $id));
 
@@ -105,6 +106,16 @@ class CursoForm extends AbstractCrudForm
         foreach ($instrutores as $instrutor) {
             $this->arrayInstrutor[$instrutor->getId()] = $instrutor->getNome();
         }
+    }
+
+    private function getArrayVideos($entityManager, $cursoId)
+    {
+        $arrayVideos = array();
+        $videos = $entityManager->getRepository('Application\Entity\Video')->findByCurso($cursoId);
+        foreach ($videos as $video) {
+            $arrayVideos[] = $video->toArray();
+        }
+        return $arrayVideos;
     }
 
     private function getArrayAtividades($entityManager, $cursoId)

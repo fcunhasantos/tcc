@@ -15,8 +15,8 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody ng-repeat="row in data | filter:filtro">
-            <tr class="registro accordion-toggle" id={{row.id}} ng-controller="indexRowController" ng-click="selectRow()" data-toggle="collapse" data-target="#atividades{{row.id}}">
+        <tbody>
+            <tr class="registro" id={{row.id}} ng-repeat="row in data | filter:filtro" ng-controller="indexRowController" ng-click="selectRow()">
                 <td>{{row.titulo}}</td>
                 <td>{{row.palavrasChave}}</td>
                 <td>{{row.dataLimite}}</td>
@@ -24,26 +24,6 @@
                 <td>{{row.instrutor.nome}}</td>
                 <td>
                     <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="12" id="atividades{{row.id}}" class="accordian-body collapse">
-                    <table id="indexTable" class="table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Atividades</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody ng-repeat="atividade in row.atividades">
-                            <tr class="registro" id={{atividade.id}} ng-controller="indexCursoController">
-                                <td>{{atividade.id}}</td>
-                                <td>
-                                    <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </td>
             </tr>
         </tbody>

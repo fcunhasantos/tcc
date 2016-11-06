@@ -25,7 +25,7 @@ class Unidade
     /**
      * @var string
      *
-     * @ORM\Column(name="descricao", type="string", length=100, nullable=false)
+     * @ORM\Column(name="descricao", type="string", length=45, nullable=false)
      */
     private $descricao;
 

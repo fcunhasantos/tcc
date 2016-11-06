@@ -40,6 +40,8 @@ class UploadFilter extends InputFilter
             'video/mpeg',
             'enableHeaderCheck' => true
         )));
-        $this->add($arquivo);
+        if (!is_null($arquivo->getValue())) {
+            $this->add($arquivo);
+        }
     }
 }

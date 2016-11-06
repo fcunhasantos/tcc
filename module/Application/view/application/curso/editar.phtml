@@ -40,61 +40,16 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Arquivo</th>
                                 <th>Url</th>
-                                <th>Curso</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="row in atividades | filter:filtro">
-                            <tr class="registro accordion-toggle" id=atividade{{row.id}} ng-controller="atividadesCursoController" ng-click="selectRow()" data-toggle="collapse" data-target="#atividades{{row.id}}">
+                        <tbody ng-repeat="row in videos | filter:filtro">
+                            <tr class="registro accordion-toggle" id=video{{row.id}} ng-controller="videosCursoController" ng-click="selectRow()" data-toggle="collapse" data-target="#videos{{row.id}}">
                                 <td>{{row.nome}}</td>
-                                <td>{{row.descricao}}</td>
-                                <td>{{row.curso.titulo}}</td>
-                                <td>{{row.tipoAtividade.nome}}</td>
+                                <td>{{row.url}}</td>
                                 <td>
-                                    <a class="hover-btn edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a class="hover-btn add" href="#" data-toggle="modal" data-target=".modal-confirmDelete" title="Remover"> <span class="glyphicon glyphicon-trash"></span></a>
-                                    <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    <div class="panel-group" id="accordionMaterial" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordionMaterial" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Material
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body" ng-init='materiais = <?php echo json_encode($form->getAttribute('materiais')); ?>'>
-                    <table id="indexTable" class="table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Arquivo</th>
-                                <th>Curso</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody ng-repeat="row in materiais | filter:filtro">
-                            <tr class="registro accordion-toggle" id=material{{row.id}} ng-controller="materiaisCursoController" ng-click="selectRow()" data-toggle="collapse" data-target="#materiais{{row.id}}">
-                                <td>{{row.nome}}</td>
-                                <td>{{row.arquivo}}</td>
-                                <td>{{row.curso.titulo}}</td>
-                                <td>
-                                    <a class="hover-btn edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a class="hover-btn add" href="#" data-toggle="modal" data-target=".modal-confirmDelete" title="Remover"> <span class="glyphicon glyphicon-trash"></span></a>
-                                    <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
+                                    <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
                                 </td>
                             </tr>
                         </tbody>
@@ -121,7 +76,6 @@
                         <tr>
                             <th>Nome</th>
                             <th>Descrição</th>
-                            <th>Curso</th>
                             <th>Tipo</th>
                             <th></th>
                         </tr>
@@ -130,12 +84,44 @@
                         <tr class="registro accordion-toggle" id=atividade{{row.id}} ng-controller="atividadesCursoController" ng-click="selectRow()" data-toggle="collapse" data-target="#atividades{{row.id}}">
                             <td>{{row.nome}}</td>
                             <td>{{row.descricao}}</td>
-                            <td>{{row.curso.titulo}}</td>
                             <td>{{row.tipoAtividade.nome}}</td>
                             <td>
-                                <a class="hover-btn edit" href="#" ng-click="edit()" title="Editar"> <span class="glyphicon glyphicon-pencil"></span></a>
-                                <a class="hover-btn add" href="#" data-toggle="modal" data-target=".modal-confirmDelete" title="Remover"> <span class="glyphicon glyphicon-trash"></span></a>
-                                <?php include(__DIR__.'/../../modals/confirmDelete.phtml') ?>
+                                <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="panel-group" id="accordionMaterial" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordionMaterial" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Material
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body" ng-init='materiais = <?php echo json_encode($form->getAttribute('materiais')); ?>'>
+                    <table id="indexTable" class="table table-hover table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Arquivo</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="row in materiais | filter:filtro">
+                        <tr class="registro accordion-toggle" id=material{{row.id}} ng-controller="materiaisCursoController" ng-click="selectRow()" data-toggle="collapse" data-target="#materiais{{row.id}}">
+                            <td>{{row.nome}}</td>
+                            <td>{{row.arquivo}}</td>
+                            <td>
+                                <?php include(__DIR__.'/../../layout/indexRowButtons.phtml') ?>
                             </td>
                         </tr>
                         </tbody>

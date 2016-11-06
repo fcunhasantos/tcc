@@ -34,7 +34,7 @@ class Resposta
      *
      * @ORM\Column(name="idcorreta", type="string", length=1, nullable=true)
      */
-    private $idcorreta;
+    private $idcorreta = 'N';
 
     /**
      * @var \Application\Entity\Questao
@@ -127,6 +127,7 @@ class Resposta
      */
     public function setIdcorreta($idcorreta)
     {
+        var_dump($idcorreta);die;
         $this->idcorreta = $idcorreta;
     }
 

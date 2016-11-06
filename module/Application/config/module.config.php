@@ -128,7 +128,7 @@ return array(
             'resposta' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/resposta[/:action][/:id][/:questao][/]',
+                    'route' => '/resposta[/:action][/:id][/]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Resposta',
                         'action' => 'index'
@@ -161,6 +161,16 @@ return array(
                     'route' => '/usuario[/:action][/:id][/]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Usuario',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'video' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/video[/:action][/:id][/]',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Video',
                         'action' => 'index'
                     )
                 ),
@@ -230,6 +240,7 @@ return array(
             'Application\Controller\TipoAtividade' => Controller\TipoAtividadeController::class,
             'Application\Controller\Unidade' => Controller\UnidadeController::class,
             'Application\Controller\Usuario' => Controller\UsuarioController::class,
+            'Application\Controller\Video' => Controller\VideoController::class,
             'Application\Controller\Pdf' => 'Application\Controller\PdfController'
         ),
     ),
