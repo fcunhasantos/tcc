@@ -37,9 +37,9 @@ class Atividade
     private $descricao;
 
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="nrordem", type="integer", nullable=false)
+     * @ORM\Column(name="nrordem", type="integer", nullable=true)
      */
     private $nrordem;
 

@@ -76,12 +76,18 @@ class IndexController extends AbstractCrudController
     {
         $inscricaoId = $this->params()->fromRoute('inscricao');
         $inscricao = $this->getEntityManager()->getRepository('Application\Entity\Inscricao')->find($inscricaoId);
+        $unidades = $this->getEntityManager()->getRepository('Application\Entity\Unidade')
+            ->findBy(array('curso' => $inscricao->getCurso()->getId()));
+        $videos = $this->getEntityManager()->getRepository('Application\Entity\Video')
+            ->findBy(array('curso' => $inscricao->getCurso()->getId()));
         $atividades = $this->getEntityManager()->getRepository('Application\Entity\Atividade')
             ->findBy(array('curso' => $inscricao->getCurso()->getId()));
         $materiais = $this->getEntityManager()->getRepository('Application\Entity\Material')
             ->findBy(array('curso' => $inscricao->getCurso()->getId()));
         return array(
             'inscricao' => $inscricao->toArray(),
+            'unidades' => Util::arrayObjectsToArray($unidades),
+            'videos' => Util::arrayObjectsToArray($videos),
             'atividades' => Util::arrayObjectsToArray($atividades),
             'materiais' => Util::arrayObjectsToArray($materiais)
         );

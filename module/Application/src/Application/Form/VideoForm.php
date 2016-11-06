@@ -10,7 +10,7 @@ namespace Application\Form;
 
 use Application\Validator\UploadFilter;
 
-class MaterialForm extends AbstractCrudForm
+class VideoForm extends AbstractCrudForm
 {
     private $arrayCurso;
     private $arrayUnidade;
@@ -27,20 +27,20 @@ class MaterialForm extends AbstractCrudForm
                     'class' => 'form-control input-sm'
                 )
             ),
-            array(
+            /*array(
                 'name' => 'arquivo',
                 'type' => 'File',
                 'attributes' => array(
                     'class' => 'form-control input-sm'
                 )
-            ),
-            /*array(
+            ),*/
+            array(
                 'name' => 'url',
                 'type' => 'Text',
                 'attributes' => array(
                     'class' => 'form-control input-sm'
                 )
-            ),*/
+            ),
             array(
                 'name' => 'curso',
                 'type' => 'Select',
@@ -117,7 +117,7 @@ class MaterialForm extends AbstractCrudForm
         );
 
         parent::__construct($name, $entity, $entityManager);
-        $this->setInputFilter(new UploadFilter('arquivo'));
+        //$this->setInputFilter(new UploadFilter('arquivo'));
     }
 
     private function carregaCursoArray($entityManager)

@@ -15,5 +15,5 @@ class UsuarioController extends AbstractCrudController
     protected $entity = 'Application\Entity\Usuario';
     protected $form = 'Application\Form\UsuarioForm';
     protected $route = 'usuario';
-    protected $title = 'Usu·rio';
+    protected $title = 'Usu√°rio';
 }

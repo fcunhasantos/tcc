@@ -11,25 +11,44 @@
                     <h3>Detalhes</h3>
                     <p>Data Limite: {{inscricao.curso.dataLimite}}</p>
                     <p>Instrutor: {{inscricao.curso.instrutor.nome}}</p>
-                    <h3>Atividades</h3>
-                    <div ng-init='atividades = <?php echo json_encode($atividades); ?>'>
-                        <ul ng-repeat="atividade in atividades | filter:filtro">
-                            <li>
-                                <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="minhaatividade()">
-                                    {{atividade.nome}} - {{atividade.tipoAtividade.nome}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <h3>Materiais</h3>
-                    <div ng-init='materiais = <?php echo json_encode($materiais); ?>'>
-                        <ul ng-repeat="material in materiais | filter:filtro">
-                            <li>
-                                <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="meumaterial()">
-                                    {{material.nome}}
-                                </a>
-                            </li>
-                        </ul>
+                    <div ng-init='unidades= <?php echo json_encode($unidades); ?>'>
+                        <div ng-repeat="unidade in unidades | filter:filtro" ng-controller="meuCursoUnidadeController">
+                            <h3>{{unidade.descricao}}</h3>
+                            <ul>
+                                <div ng-init='videos= <?php echo json_encode($videos); ?>'>
+                                    <h4>Vídeos</h4>
+                                    <ul ng-repeat="video in videos | filter:filtroUnidade">
+                                        <li>
+                                            <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="meuvideo()">
+                                                {{video.nrordem}} - {{video.nome}}
+                                            </a>
+                                            <br/>
+                                            <iframe src="{{video.url}}" width="WIDTH" height="HEIGHT" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div ng-init='atividades = <?php echo json_encode($atividades); ?>'>
+                                    <h4>Atividades</h4>
+                                    <ul ng-repeat="atividade in atividades | filter:filtroUnidade">
+                                        <li>
+                                            <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="minhaatividade()">
+                                                {{atividade.nome}} - {{atividade.tipoAtividade.nome}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h4>Materiais</h4>
+                                <div ng-init='materiais = <?php echo json_encode($materiais); ?>'>
+                                    <ul ng-repeat="material in materiais | filter:filtroUnidade">
+                                        <li>
+                                            <a class="alert-link" ng-controller="meuCursoAtividadeController" ng-click="meumaterial()">
+                                                {{material.nome}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

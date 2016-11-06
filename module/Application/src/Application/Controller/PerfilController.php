@@ -15,5 +15,5 @@ class PerfilController extends AbstractCrudController
     protected $entity = 'Application\Entity\Perfil';
     protected $form = 'Application\Form\PerfilForm';
     protected $route = 'perfil';
-    protected $title = 'Perfil de Usu·rio';
+    protected $title = 'Perfil de Usu√°rio';
 }

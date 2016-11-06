@@ -56,11 +56,11 @@ abstract class AbstractCrudController extends AbstractActionController
     public function adicionarAction()
     {
         // recebe id da rota quando é selecionada adição a partir do registro pai
-        $id = $this->params()->fromRoute('id');
+        //$id = $this->params()->fromRoute('id');
         $form = new $this->form($this->route, $this->entity, $this->getEntityManager(), null);
         $basePath = $this->getRequest()->getRequestUri();
         $form->setAttribute('action',$basePath);
-        $form->setAttribute('fk1',$id);
+        //$form->setAttribute('fk1',$id);
         $form->setLabel('Adicionar '.$this->title);
         if ($this->getRequest()->isPost()) {
             $form->setData(
@@ -73,11 +73,11 @@ abstract class AbstractCrudController extends AbstractActionController
                 $data = $form->getData();
                 $this->getEntityManager()->persist($data);
                 $this->getEntityManager()->flush();
-                if($id) {
-                    $this->redirect()->toRoute($this->fk1route, array('action'=>'editar', 'id'=>$id));
-                } else {
+                //if($id) {
+                    //$this->redirect()->toRoute($this->fk1route, array('action'=>'editar', 'id'=>$id));
+                //} else {
                     $this->redirect()->toRoute($this->route);
-                }
+                //}
             }
         }
         $form->prepare();
@@ -97,14 +97,19 @@ abstract class AbstractCrudController extends AbstractActionController
                 'om' => $this->getEntityManager()
             ));*/
             $id = $this->params()->fromRoute('id');
-            $form = new $this->form($this->route, $this->entity, $this->getEntityManager(), $id);
+            $form = new $this->form($this->route, $this->entity, $this->getEntityManager());
             $basePath = $this->getRequest()->getRequestUri();
             $form->setAttribute('action', $basePath);
             $form->setLabel('Editar ' . $this->title);
             $object = $this->getRepository()->findOneById($id);
             $form->bind($object);
 
+            //var_dump($this->getResponse());die;
+            if ($this->getRequest()->isGet()){
+                //var_dump($this->getRequest());die;
+            }
             if ($this->getRequest()->isPost()) {
+                var_dump('teste');die;
                 $form->setData(
                     array_merge_recursive(
                         $this->getRequest()->getPost()->toArray(),

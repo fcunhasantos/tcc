@@ -15,6 +15,6 @@ class RespostaController extends AbstractCrudController
     protected $form = 'Application\Form\RespostaForm';
     protected $title = 'Resposta';
     protected $route = 'resposta';
-    protected $fk1route = 'questao';
+    //protected $fk1route = 'questao';
     protected $order = array('questao'=>'ASC','descricao'=>'ASC');
 }

@@ -5,13 +5,13 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Material
+ * Video
  *
- * @ORM\Table(name="material", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_material_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_material_unidade1_idx", columns={"unidade_id"})})
+ * @ORM\Table(name="video", indexes={@ORM\Index(name="fk_video_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_video_unidade1_idx", columns={"unidade_id"})})
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Application\Repository\MaterialRepository")
+ * @ORM\Entity(repositoryClass="Application\Repository\VideoRepository")
  */
-class Material
+class Video
 {
     /**
      * @var integer
@@ -32,16 +32,16 @@ class Material
     /**
      * @var string
      *
-     * @ORM\Column(name="arquivo", type="string", length=500, nullable=false)
+     * @ORM\Column(name="url", type="string", length=500, nullable=true)
      */
-    private $arquivo;
+    private $url;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=500, nullable=true)
+     * @ORM\Column(name="arquivo", type="string", length=500, nullable=true)
      */
-    private $url;
+    private $arquivo;
 
     /**
      * @var integer
@@ -84,9 +84,7 @@ class Material
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -94,22 +92,14 @@ class Material
     }
 
     /**
-     * Set nome
-     *
-     * @param string $nome
-     *
-     * @return Material
+     * @param int $id
      */
-    public function setNome($nome)
+    public function setId($id)
     {
-        $this->nome = $nome;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get nome
-     *
      * @return string
      */
     public function getNome()
@@ -118,50 +108,14 @@ class Material
     }
 
     /**
-     * Set arquivo
-     *
-     * @param string $arquivo
-     *
-     * @return Material
+     * @param string $nome
      */
-    public function setArquivo($arquivo)
+    public function setNome($nome)
     {
-        if (is_array($arquivo)) {
-            $this->arquivo = $arquivo['tmp_name'];
-        } else {
-            $this->arquivo = $arquivo;
-        }
-
-        return $this;
+        $this->nome = $nome;
     }
 
     /**
-     * Get arquivo
-     *
-     * @return string
-     */
-    public function getArquivo()
-    {
-        return $this->arquivo;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Material
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
      * @return string
      */
     public function getUrl()
@@ -170,22 +124,30 @@ class Material
     }
 
     /**
-     * Set nrordem
-     *
-     * @param int $nrordem
-     *
-     * @return Material
+     * @param string $url
      */
-    public function setNrordem($nrordem)
+    public function setUrl($url)
     {
-        $this->nrordem = $nrordem;
-
-        return $this;
+        $this->url = $url;
     }
 
     /**
-     * Get nrordem
-     *
+     * @return string
+     */
+    public function getArquivo()
+    {
+        return $this->arquivo;
+    }
+
+    /**
+     * @param string $arquivo
+     */
+    public function setArquivo($arquivo)
+    {
+        $this->arquivo = $arquivo;
+    }
+
+    /**
      * @return int
      */
     public function getNrordem()
@@ -194,23 +156,15 @@ class Material
     }
 
     /**
-     * Set curso
-     *
-     * @param \Application\Entity\Curso $curso
-     *
-     * @return Material
+     * @param int $nrordem
      */
-    public function setCurso(\Application\Entity\Curso $curso = null)
+    public function setNrordem($nrordem)
     {
-        $this->curso = $curso;
-
-        return $this;
+        $this->nrordem = $nrordem;
     }
 
     /**
-     * Get curso
-     *
-     * @return \Application\Entity\Curso
+     * @return Curso
      */
     public function getCurso()
     {
@@ -218,26 +172,27 @@ class Material
     }
 
     /**
-     * Set unidade
-     *
-     * @param \Application\Entity\Unidade $unidade
-     *
-     * @return Material
+     * @param Curso $curso
      */
-    public function setUnidade(\Application\Entity\Unidade $unidade = null)
+    public function setCurso($curso)
     {
-        $this->unidade = $unidade;
-
-        return $this;
+        $this->curso = $curso;
     }
 
     /**
-     * Get unidade
-     *
-     * @return \Application\Entity\Curso
+     * @return Unidade
      */
     public function getUnidade()
     {
         return $this->unidade;
     }
+
+    /**
+     * @param Unidade $unidade
+     */
+    public function setUnidade($unidade)
+    {
+        $this->unidade = $unidade;
+    }
 }
+
