@@ -16,6 +16,7 @@ use Application\Entity\StatusMaterial;
 use Application\Entity\StatusQuestao;
 use Application\Util\Util;
 use DOMPDFModule\View\Model\PdfModel;
+use User\Form\AvaliacaoForm;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractCrudController
@@ -25,7 +26,7 @@ class IndexController extends AbstractCrudController
         return new ViewModel();
     }
 
-    public function inscricaoAction()
+    public function inscricoesAction()
     {
         $usuario = $this->getEntityManager()->getRepository('Application\Entity\Usuario')->find($this->identity()->getId());
         $cursos = $this->getEntityManager()->getRepository('Application\Entity\Curso')->findAll();
@@ -39,6 +40,31 @@ class IndexController extends AbstractCrudController
             'usuario' => $usuario->toArray(),
             'cursos' => Util::arrayObjectsToArray($cursos),
             'inscricoes' => $cursosInscritos
+        );
+        //return new ViewModel();
+    }
+
+    public function inscricaoAction()
+    {
+        $usuarioId = $this->params()->fromRoute('usuario');
+        $cursoId = $this->params()->fromRoute('curso');
+        $usuario = $this->getEntityManager()->getRepository('Application\Entity\Usuario')->find($usuarioId);
+        $curso = $this->getEntityManager()->getRepository('Application\Entity\Curso')->find($cursoId);
+        $unidades = $this->getEntityManager()->getRepository('Application\Entity\Unidade')
+            ->findBy(array('curso' => $curso->getId()));
+        $videos = $this->getEntityManager()->getRepository('Application\Entity\Video')
+            ->findBy(array('curso' => $curso->getId()));
+        $atividades = $this->getEntityManager()->getRepository('Application\Entity\Atividade')
+            ->findBy(array('curso' => $curso->getId()));
+        $materiais = $this->getEntityManager()->getRepository('Application\Entity\Material')
+            ->findBy(array('curso' => $curso->getId()));
+        return array(
+            'usuario' => $usuario->toArray(),
+            'curso' => $curso->toArray(),
+            'unidades' => Util::arrayObjectsToArray($unidades),
+            'videos' => Util::arrayObjectsToArray($videos),
+            'atividades' => Util::arrayObjectsToArray($atividades),
+            'materiais' => Util::arrayObjectsToArray($materiais)
         );
         //return new ViewModel();
     }
@@ -90,6 +116,55 @@ class IndexController extends AbstractCrudController
             'videos' => Util::arrayObjectsToArray($videos),
             'atividades' => Util::arrayObjectsToArray($atividades),
             'materiais' => Util::arrayObjectsToArray($materiais)
+        );
+        //return new ViewModel();
+    }
+
+    /*public function avaliacaoAction()
+    {
+        $inscricaoId = $this->params()->fromRoute('inscricao');
+        $inscricao = $this->getEntityManager()->getRepository('Application\Entity\Inscricao')->find($inscricaoId);
+        return array(
+            'inscricao' => $inscricao->toArray()
+        );
+        //return new ViewModel();
+    }*/
+    public function avaliacaoAction()
+    {
+        $inscricaoId = $this->params()->fromRoute('inscricao');
+        $inscricao = $this->getEntityManager()->getRepository('Application\Entity\Inscricao')->find($inscricaoId);
+        $form = new AvaliacaoForm($this->getEntityManager());
+        $basePath = $this->getRequest()->getRequestUri();
+        $form->setAttribute('action',$basePath);
+        $form->setAttribute('inscricao',$inscricao);
+        $form->setLabel('Avaliar Curso');
+        if ($this->getRequest()->isPost()) {
+            $form->setData(
+                array_merge_recursive(
+                    $this->getRequest()->getPost()->toArray(),
+                    $this->getRequest()->getFiles()->toArray()
+                )
+            );
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $data->setInscricao($inscricao);
+                $this->getEntityManager()->persist($data);
+                $this->getEntityManager()->flush();
+                $this->redirect()->toRoute('meucurso',array('inscricao' => $inscricaoId));
+            }
+        }
+        $form->prepare();
+        return array(
+            'form' => $form
+        );
+    }
+
+    public function avaliarAction()
+    {
+        $inscricaoId = $this->params()->fromRoute('inscricao');
+        $inscricao = $this->getEntityManager()->getRepository('Application\Entity\Inscricao')->find($inscricaoId);
+        return array(
+            'inscricao' => $inscricao->toArray()
         );
         //return new ViewModel();
     }

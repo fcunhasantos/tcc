@@ -95,6 +95,14 @@ app.controller('respostasQuestaoController', function($scope) {
 });
 
 app.controller('inscricoesCursoController', function($scope) {
+    $scope.vercurso = function(curso){
+        //if ($scope.naoinscrito($scope.curso.id)) {
+            window.location = "inscricao/" + $scope.usuario.id + "/" + $scope.curso.id;
+        //} else {
+          //  window.location = "meucurso/" + $scope.inscricao.id;
+        //}
+    };
+
     $scope.inscrito = function(curso){
         var indexOfRole = $scope.inscricoes.indexOf(curso);
         if (indexOfRole === -1)
@@ -121,6 +129,12 @@ app.controller('inscricoesCursoController', function($scope) {
 app.controller('meusCursosController', function($scope) {
     $scope.meucurso = function() {
         window.location = "meucurso/"+$scope.inscricao.id;
+    };
+});
+
+app.controller('meuCursoController', function($scope) {
+    $scope.avaliacao = function() {
+        window.location.href = window.location.origin + '/tcc/public/avaliacao/'+$scope.inscricao.id;
     };
 });
 

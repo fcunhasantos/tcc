@@ -8,6 +8,11 @@
 
             <div class="panel-body">
                 <div>
+                    <a ng-controller="meuCursoController" ng-click="avaliacao()" class="btn btn-sm btn-primary pull-right">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> Avaliar Curso
+                    </a>
+                </div>
+                <div>
                     <h3>Detalhes</h3>
                     <p>Data Limite: {{inscricao.curso.dataLimite}}</p>
                     <p>Instrutor: {{inscricao.curso.instrutor.nome}}</p>
