@@ -1,22 +1,45 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-        <div class="panel panel-default" ng-init='usuario = <?php echo json_encode($usuario); ?>'>
+        <div class="panel panel-default" ng-init='usuario = <?php echo json_encode($usuario); ?>; curso = <?php echo json_encode($curso); ?>'>
             <div class="panel-heading">
-                <h3 class="panel-title text-center"><?php echo $this->translate('Inscrições') ?></h3>
+                <h3 class="panel-title text-center">{{curso.titulo}}</h3>
             </div>
 
             <div class="panel-body">
-                <div ng-init='cursos = <?php echo json_encode($cursos); ?>; inscricoes = <?php echo json_encode($inscricoes); ?>'>
-                    <ul ng-repeat="curso in cursos">
-                        <a ng-controller="inscricoesCursoController" ng-click="inscrever()">
-                            <li ng-show="inscrito(curso.id)">
-                                {{curso.titulo}} - até {{curso.dataLimite}} - Instrutor: {{curso.instrutor.nome}} - Inscrito
-                            </li>
-                            <li ng-show="naoinscrito(curso.id)">
-                                {{curso.titulo}} - até {{curso.dataLimite}} - Instrutor: {{curso.instrutor.nome}} - Inscrever-se
-                            </li>
-                        </a>
-                    </ul>
+                <div>
+                    <a ng-controller="inscricoesCursoController" ng-click="inscrever()" class="btn btn-sm btn-primary pull-right">
+                        <span class="glyphicon glyphicon-hand-right"></span> Inscrever-se
+                    </a>
+                </div>
+                <div>
+                    <h3>Detalhes</h3>
+                    <p>Data Limite: {{curso.dataLimite}}</p>
+                    <p>Instrutor: {{curso.instrutor.nome}}</p>
+                    <div ng-init='unidades= <?php echo json_encode($unidades); ?>'>
+                        <div ng-repeat="unidade in unidades" ng-controller="meuCursoUnidadeController">
+                            <h3>{{unidade.descricao}}</h3>
+                            <ul>
+                                <div ng-init='videos= <?php echo json_encode($videos); ?>'>
+                                    <h4>Vídeos</h4>
+                                    <ul ng-repeat="video in videos | filter:filtroUnidade">
+                                        <li>{{video.nrordem}} - {{video.nome}}</li>
+                                    </ul>
+                                </div>
+                                <div ng-init='atividades = <?php echo json_encode($atividades); ?>'>
+                                    <h4>Atividades</h4>
+                                    <ul ng-repeat="atividade in atividades | filter:filtroUnidade">
+                                        <li>{{atividade.nome}} - {{atividade.tipoAtividade.nome}}</li>
+                                    </ul>
+                                </div>
+                                <h4>Materiais</h4>
+                                <div ng-init='materiais = <?php echo json_encode($materiais); ?>'>
+                                    <ul ng-repeat="material in materiais | filter:filtroUnidade">
+                                        <li>{{material.nome}}</li>
+                                    </ul>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

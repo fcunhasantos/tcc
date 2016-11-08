@@ -12,10 +12,20 @@ namespace User;
 return array(
     'router' => array(
         'routes' => array(
-            'inscricao' => array(
+            'inscricoes' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/inscricao',
+                    'route'    => '/inscricoes',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Index',
+                        'action'     => 'inscricoes',
+                    ),
+                ),
+            ),
+            'inscricao' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/inscricao[/[:usuario[/:curso]]]',
                     'defaults' => array(
                         'controller' => 'User\Controller\Index',
                         'action'     => 'inscricao',
@@ -49,6 +59,26 @@ return array(
                     'defaults' => array(
                         'controller' => 'User\Controller\Index',
                         'action'     => 'meucurso',
+                    ),
+                ),
+            ),
+            'avaliacao' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/avaliacao[/[:inscricao]]',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Index',
+                        'action'     => 'avaliacao',
+                    ),
+                ),
+            ),
+            'avaliar' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route'    => '/avaliacao[/[:inscricao]]',
+                    'defaults' => array(
+                        'controller' => 'User\Controller\Index',
+                        'action'     => 'avaliacao',
                     ),
                 ),
             ),
